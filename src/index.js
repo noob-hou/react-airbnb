@@ -1,17 +1,33 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import App from '@/APP';
+
+import { HashRouter, } from "react-router-dom"
+
+import { Provider } from "react-redux"
+import store from './store';
+
+import 'normalize.css'
+import '@/assets/css/index.css'
+import 'antd/dist/reset.css';
+//主题颜色的使用
+import { ThemeProvider } from 'styled-components'
+import theme from './assets/theme';
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+
+  <Provider store={store}>
+    <Suspense fallback='loading'>
+      <ThemeProvider theme={theme}>
+        <HashRouter>
+          <App />
+        </HashRouter>
+      </ThemeProvider>
+    </Suspense>
+  </Provider>
+
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
